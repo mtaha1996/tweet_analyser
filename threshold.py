@@ -74,4 +74,7 @@ class Threshold:
                     else:
                         return "err in claculating act!"
 
+                else:
+                    return "err in claculating act!"
+
         return all_days

@@ -50,19 +50,15 @@ def get_liwc_scores(wc, tweets, name_time):
     # This part is for adding new features to categories
     new_feat = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
                 '0_6', '6_12', '12_17', '17_24', 'Username']
-    category_list += new_feat
-    name_act = calc_act(name_time)
-    # todo here !
+    category_list = category_list + new_feat
+    act_name = calc_act(name_time)
 
-    print('category_list:', category_list)
-    print('name_act:', name_act)
+    # print('category_list:', category_list)
+    # print('name_act:', act_name)
 
     for i in range(len(all_scores)):
-        all_scores[i] = all_scores[i] + name_act[i]
+        all_scores[i] = all_scores[i] + act_name[i]
 
-    print('all_scores', all_scores)
-
-    # print(all_scores)
     return all_scores, category_list
 
 
@@ -72,7 +68,6 @@ def get_tweet_body(input_file):
 
 
 def get_tweet_name_time(input_file):
-    print(input_file)
     name_time = Preprocess(input_file, header=0).get_columns(["Screen_Name", "Time"])
     return name_time
 
@@ -87,6 +82,7 @@ def main(infname, outfname):
     tweet_name_time = get_tweet_name_time(input_all)
 
     ip_scores, category_list = get_liwc_scores(wc, ip_tweet_body, tweet_name_time)
+
     write_csv(op_filename, ip_scores, category_list)
 
 
